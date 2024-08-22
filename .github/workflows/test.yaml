@@ -28,9 +28,8 @@ jobs:
               git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix cicd/lesson_ci_cd
             fi
             cd cicd/lesson_ci_cd/
-            docker compose down
-            docker image rm lesson_ci_cd-cicd_test_project
             git pull origin main
+            docker compose down
             docker compose up --build -d
           script_stop: true
           timeout: 200s
