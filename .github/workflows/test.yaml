@@ -7,9 +7,8 @@ on:
 
 env:
   SERVER_USERNAME: ubuntu
-  SERVER_IP: 3.79.247.6
+  SERVER_IP: 3.76.202.26
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-  SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
 
 jobs:
   build_deploy:
@@ -24,7 +23,6 @@ jobs:
           host: ${{ env.SERVER_IP }}
           username: ${{ env.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             set -e
 
