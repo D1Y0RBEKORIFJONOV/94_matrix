@@ -18,7 +18,7 @@ type App struct {
 func NewApp(cfg *config.Config, logger *slog.Logger) *App {
 	db, err := postgres.New(cfg)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatal(err)
 	}
 	repo := postgresql.NewBookRepository(db, logger)
 	repoUseCase := bookusecase.NewBookRepoUseCase(repo)
