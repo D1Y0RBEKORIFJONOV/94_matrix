@@ -179,7 +179,7 @@ func (b *Book) UpdateBook(c *gin.Context) {
 	id := c.DefaultQuery("id", "")
 	if id == "" {
 		b.errorCount.Add(1)
-		c.JSON(http.StatusBadRequest, gin.H{"errors": "id is required"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "id is required"})
 		return
 	}
 
