@@ -25,7 +25,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-
             TARGET_DIR=~/94_matrix
             echo "Checking if directory exists..."
             if [ ! -d "$TARGET_DIR" ]; then
@@ -42,7 +41,7 @@ jobs:
 
             echo "Current directory: $(pwd)"
             echo "Directory contents:"
-            ls -l
+            ls -la
 
             if [ ! -f "docker-compose.yaml" ]; then
               echo "docker-compose.yaml not found in $(pwd)"
