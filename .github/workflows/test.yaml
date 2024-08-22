@@ -7,7 +7,7 @@ on:
 
 env:
   SERVER_USERNAME: ubuntu
-  SERVER_IP: 3.79.247.6
+  SERVER_IP: 172-26-11-1
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
 
