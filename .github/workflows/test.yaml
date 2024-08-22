@@ -27,15 +27,16 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             set -e
-            if [ ! -d "~/94_matrix" ]; then
-              echo "Directory ~/94_matrix does not exist. Cloning repository..."
-              git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix.git ~/94_matrix
+            TARGET_DIR=~/94_matrix
+            if [ ! -d "$TARGET_DIR" ]; then
+              echo "Directory $TARGET_DIR does not exist. Cloning repository..."
+              git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix.git "$TARGET_DIR"
             else
-              echo "Directory ~/94_matrix already exists. Updating repository..."
-              cd ~/94_matrix
+              echo "Directory $TARGET_DIR exists. Pulling latest changes..."
+              cd "$TARGET_DIR"
               git pull origin main
             fi
-            cd ~/94_matrix
+            cd "$TARGET_DIR"
             if [ ! -f "docker-compose.yaml" ]; then
               echo "docker-compose.yaml not found in $(pwd)"
               exit 1
