@@ -27,21 +27,22 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             set -e
+
             TARGET_DIR=~/94_matrix
-            
             echo "Checking if directory exists..."
             if [ ! -d "$TARGET_DIR" ]; then
               echo "Directory $TARGET_DIR does not exist. Cloning repository..."
               git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix.git "$TARGET_DIR"
+              echo "Repository cloned."
             else
               echo "Directory $TARGET_DIR exists. Pulling latest changes..."
               cd "$TARGET_DIR" || { echo "Failed to change directory to $TARGET_DIR"; exit 1; }
               git pull origin main || { echo "Failed to pull latest changes from git"; exit 1; }
+              echo "Latest changes pulled."
             fi
 
             echo "Changing to target directory..."
             cd "$TARGET_DIR" || { echo "Failed to change directory to $TARGET_DIR"; exit 1; }
-
             echo "Current directory: $(pwd)"
             echo "Directory contents:"
             ls -l
@@ -53,8 +54,10 @@ jobs:
 
             echo "Stopping existing containers..."
             docker-compose down || { echo "Failed to stop existing containers"; exit 1; }
+            echo "Containers stopped."
 
             echo "Building and starting containers..."
             docker-compose up --build -d || { echo "Failed to build and start containers"; exit 1; }
+            echo "Containers built and started."
           script_stop: true
           timeout: 200s
