@@ -1,0 +1,194 @@
+definitions:
+  bookentity.Book:
+    properties:
+      author:
+        type: string
+      id:
+        type: string
+      isbn:
+        type: string
+      published_date:
+        type: string
+      title:
+        type: string
+    type: object
+  bookentity.CreateBookRequest:
+    properties:
+      author:
+        type: string
+      isbn:
+        type: string
+      title:
+        type: string
+    type: object
+  bookentity.UpdateBookRequest:
+    properties:
+      author:
+        type: string
+      isbn:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /book/:
+    get:
+      consumes:
+      - application/json
+      description: GetBook
+      parameters:
+      - description: id book
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/bookentity.Book'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: GetBook
+      tags:
+      - book
+  /book/books:
+    get:
+      consumes:
+      - application/json
+      description: GetBooks
+      parameters:
+      - description: value book
+        in: query
+        name: value
+        type: string
+      - description: field book
+        in: query
+        name: field
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/bookentity.Book'
+            type: array
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: GetBooks
+      tags:
+      - book
+  /book/create:
+    post:
+      consumes:
+      - application/json
+      description: CreateBook a new book
+      parameters:
+      - description: creating new book
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/bookentity.CreateBookRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/bookentity.Book'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: CreateBook
+      tags:
+      - book
+  /book/delete:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteBook
+      parameters:
+      - description: id book
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: message status
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: DeleteBook
+      tags:
+      - book
+  /book/update:
+    put:
+      consumes:
+      - application/json
+      description: UpdateBook a  book
+      parameters:
+      - description: creating new book
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/bookentity.UpdateBookRequest'
+      - description: id book
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/bookentity.Book'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: UpdateBook
+      tags:
+      - book
+  /metrics:
+    get:
+      description: Returns application metrics in expvar format
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get application metrics
+      tags:
+      - metrics
+swagger: "2.0"

@@ -1,0 +1,36 @@
+name: Build, Push and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SERVER_USERNAME: ubuntu
+  SERVER_IP: 3.79.247.6
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PUB_KEY }}
+
+jobs:
+  build_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy image to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.SERVER_IP }}
+          username: ${{ env.SERVER_USERNAME }}
+          key: ${{ env.SSH_PUB_KEY }}
+          script: |
+            if [ ! -d "cicd" ]; then
+              mkdir -p cicd
+            fi
+            cd cicd/lesson_ci_cd/
+            docker compose down
+            docker compose build
+            git pull origin main
+            docker compose up -d
+          script_stop: true
+          timeout: 200s

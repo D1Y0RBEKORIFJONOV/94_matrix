@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  go:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: book_application
+    image: myapp7
+    environment:
+      - PG_URL=postgres://postgres:+_+diyor2005+_+@postgresDB:5432/book?sslmode=disable
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+      - migrate3
+    networks:
+      - book-network
+
+  postgres:
+    container_name: postgresDB
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: book
+      POSTGRES_PASSWORD: +_+diyor2005+_+
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data1:/var/lib/postgresql/data
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - book-network
+
+  migrate3:
+    image: migrate/migrate:latest
+    restart: on-failure
+    networks:
+      - book-network
+    volumes:
+      - ./migrations:/migrations
+    command: [
+      "-path", "/migrations",
+      "-database", "postgres://postgres:+_+diyor2005+_+@postgresDB:5432/book?sslmode=disable",
+      "up"
+    ]
+    depends_on:
+      - postgres
+
+
+networks:
+  book-network:
+    driver: bridge
+
+volumes:
+  db-data1:
