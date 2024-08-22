@@ -73,7 +73,7 @@ func (s *Squirrel) JSONPathWhere(fieldName, jsonbOp, searchField, value string) 
 	value = template.HTMLEscapeString(value)
 	_, err := fmt.Fprintf(&b, "%s %s? '$.%s ?? (@ == %q)'", fieldName, jsonbOp, searchField, value)
 	if err != nil {
-		return "", fmt.Errorf("in JSONPathWhere squirrel method: %w", err)
+		return "", fmt.Errorf("n JSONPathWhere squirrel method: %w", err)
 	}
 
 	return b.String(), nil
