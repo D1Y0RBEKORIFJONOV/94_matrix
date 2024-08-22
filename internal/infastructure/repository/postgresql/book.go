@@ -38,7 +38,7 @@ func returning(data string) string {
 }
 
 func (b *BookRepository) SaveBook(ctx context.Context, book *bookentity.Book) error {
-	const op = "Repository.BookRepository.SaveBoo"
+	const op = "Repository.BookRepository.SaveBook"
 	log := b.log.With(
 		slog.String("operation", op))
 	log.Info("starting")
