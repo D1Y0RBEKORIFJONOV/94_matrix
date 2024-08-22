@@ -46,7 +46,7 @@ func (b *Book) CreateBook(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	b.dbRequestCount.Add(1)
+	b.dbRequestCount.Add(2)
 	book, err := b.book.CreateBook(c.Request.Context(), req)
 	if err != nil {
 		b.errorCount.Add(1)
