@@ -28,27 +28,33 @@ jobs:
           script: |
             set -e
             TARGET_DIR=~/94_matrix
+            
             echo "Checking if directory exists..."
             if [ ! -d "$TARGET_DIR" ]; then
               echo "Directory $TARGET_DIR does not exist. Cloning repository..."
               git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix.git "$TARGET_DIR"
             else
               echo "Directory $TARGET_DIR exists. Pulling latest changes..."
-              cd "$TARGET_DIR"
-              git pull origin main
+              cd "$TARGET_DIR" || { echo "Failed to change directory to $TARGET_DIR"; exit 1; }
+              git pull origin main || { echo "Failed to pull latest changes from git"; exit 1; }
             fi
+
             echo "Changing to target directory..."
-            cd "$TARGET_DIR"
+            cd "$TARGET_DIR" || { echo "Failed to change directory to $TARGET_DIR"; exit 1; }
+
             echo "Current directory: $(pwd)"
             echo "Directory contents:"
             ls -l
+
             if [ ! -f "docker-compose.yaml" ]; then
               echo "docker-compose.yaml not found in $(pwd)"
               exit 1
             fi
+
             echo "Stopping existing containers..."
-            docker-compose down
+            docker-compose down || { echo "Failed to stop existing containers"; exit 1; }
+
             echo "Building and starting containers..."
-            docker-compose up --build -d
+            docker-compose up --build -d || { echo "Failed to build and start containers"; exit 1; }
           script_stop: true
           timeout: 200s
