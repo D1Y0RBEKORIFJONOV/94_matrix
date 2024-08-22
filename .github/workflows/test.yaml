@@ -7,67 +7,30 @@ on:
 
 env:
   SERVER_USERNAME: ubuntu
-  SERVER_IP: 3.79.247.6
+  SERVER_IP: 52.59.220.158
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 jobs:
-  build_deploy:
+  build_push_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PUBLIC_KEY }}" > ~/.ssh/id_rsa.pub
-          chmod 644 ~/.ssh/id_rsa.pub
-          ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
-
-      - name: Verify SSH connection
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ${{ env.SERVER_USERNAME }}@${{ env.SERVER_IP }} 'echo "SSH connection successful!"'
-
       - name: Deploy image to server
-        uses: appleboy/ssh-action@v0.1.8
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ env.SERVER_IP }}
           username: ${{ env.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PUBLIC_KEY }}
+          key: ${{ env.SSH_PRIVATE_KEY }}
           script: |
-            set -e
-            TARGET_DIR=~/94_matrix
-            echo "Checking if directory exists..."
-            if [ ! -d "$TARGET_DIR" ]; then
-              echo "Directory $TARGET_DIR does not exist. Cloning repository..."
-              git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix.git "$TARGET_DIR"
-              echo "Repository cloned."
-            else
-              echo "Directory $TARGET_DIR exists. Changing to target directory..."
-              cd "$TARGET_DIR" || { echo "Failed to change directory to $TARGET_DIR"; exit 1; }
-              echo "Pulling latest changes..."
-              git pull origin main || { echo "Failed to pull latest changes from git"; exit 1; }
-              echo "Latest changes pulled."
+            if [ ! -d "cicd/lesson_ci_cd" ]; then
+              git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix cicd/lesson_ci_cd
             fi
-
-            echo "Current directory: $(pwd)"
-            echo "Directory contents:"
-            ls -la
-
-            if [ ! -f "docker-compose.yaml" ]; then
-              echo "docker-compose.yaml not found in $(pwd)"
-              exit 1
-            fi
-
-            echo "Checking Docker installation..."
-            docker --version || { echo "Docker not installed"; exit 1; }
-
-            echo "Checking Docker Compose installation..."
-            docker-compose --version || { echo "Docker Compose not installed"; exit 1; }
-
-            echo "Stopping existing containers..."
-            docker-compose down || { echo "Failed to stop existing containers"; exit 1; }
-            echo "Containers stopped."
-
-            echo "Building and starting containers..."
-            docker-compose up --build -d || { echo "Failed to build and start containers"; exit 1; }
-            echo "Containers built and started."
+            cd cicd/lesson_ci_cd/
+            docker compose down
+            docker image rm lesson_ci_cd-cicd_test_project
+            git pull origin main
+            docker compose up --build -d
+          script_stop: true
+          timeout: 200s
