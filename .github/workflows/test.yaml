@@ -27,12 +27,17 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             set -e
-            if [ ! -d "cicd/lesson_ci_cd" ]; then
-              mkdir -p cicd/lesson_ci_cd
+            if [ ! -d "~/94_matrix" ]; then
+              echo "Directory ~/94_matrix does not exist. Cloning repository..."
+              git clone https://github.com/D1Y0RBEKORIFJONOV/94_matrix.git ~/94_matrix
             fi
-            cd cicd/lesson_ci_cd
-            docker-compose down
+            cd ~/94_matrix
+            if [ ! -f "docker-compose.yaml" ]; then
+              echo "docker-compose.yaml not found in $(pwd)"
+              exit 1
+            fi
             git pull origin main
+            docker-compose down
             docker-compose build
             docker-compose up -d
           script_stop: true
