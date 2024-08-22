@@ -33,7 +33,7 @@ func New(config *config.Config) (*PostgresDB, error) {
 func (p *PostgresDB) connectDB(config *config.Config) error {
 	pgxConfig, err := pgxpool.ParseConfig(p.configToString(config))
 	if err != nil {
-		return fmt.Errorf("unable to parse db conifg: %s", err.Error())
+		return fmt.Errorf("dunable to parse db conifg: %s", err.Error())
 	}
 
 	pgxPool, err := pgxpool.ConnectConfig(context.Background(), pgxConfig)
