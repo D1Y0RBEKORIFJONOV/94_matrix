@@ -26,13 +26,14 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            if [ ! -d "cicd" ]; then
-              mkdir -p cicd
+            set -e
+            if [ ! -d "cicd/lesson_ci_cd" ]; then
+              mkdir -p cicd/lesson_ci_cd
             fi
-            cd cicd/lesson_ci_cd/
-            docker compose down
-            docker compose build
+            cd cicd/lesson_ci_cd
+            docker-compose down
             git pull origin main
-            docker compose up -d
+            docker-compose build
+            docker-compose up -d
           script_stop: true
           timeout: 200s
