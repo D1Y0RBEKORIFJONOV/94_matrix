@@ -4,7 +4,6 @@ import (
 	bookentity "94.Metrics/internal/entity/book"
 	"94.Metrics/internal/pkg/postgres"
 	"context"
-	"fmt"
 	sq "github.com/Masterminds/squirrel"
 	"log/slog"
 )
@@ -31,10 +30,6 @@ func selectQuery() string {
 	publisher_date,
 	isb
 `
-}
-
-func returning(data string) string {
-	return fmt.Sprintf("RETURNING  %s", data)
 }
 
 func (b *BookRepository) SaveBook(ctx context.Context, book *bookentity.Book) error {
