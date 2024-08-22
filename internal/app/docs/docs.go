@@ -25,7 +25,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "book"
+                    "books"
                 ],
                 "summary": "GetBook",
                 "parameters": [
@@ -64,7 +64,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "book"
+                    "books"
                 ],
                 "summary": "GetBooks",
                 "parameters": [
@@ -112,7 +112,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "book"
+                    "books"
                 ],
                 "summary": "CreateBook",
                 "parameters": [
@@ -154,7 +154,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "book"
+                    "books"
                 ],
                 "summary": "DeleteBook",
                 "parameters": [
@@ -193,7 +193,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "book"
+                    "books"
                 ],
                 "summary": "UpdateBook",
                 "parameters": [

@@ -58,7 +58,7 @@ paths:
           schema: {}
       summary: GetBook
       tags:
-      - book
+      - books
   /book/books:
     get:
       consumes:
@@ -90,7 +90,7 @@ paths:
           schema: {}
       summary: GetBooks
       tags:
-      - book
+      - books
   /book/create:
     post:
       consumes:
@@ -118,7 +118,7 @@ paths:
           schema: {}
       summary: CreateBook
       tags:
-      - book
+      - books
   /book/delete:
     delete:
       consumes:
@@ -144,7 +144,7 @@ paths:
           schema: {}
       summary: DeleteBook
       tags:
-      - book
+      - books
   /book/update:
     put:
       consumes:
@@ -176,7 +176,7 @@ paths:
           schema: {}
       summary: UpdateBook
       tags:
-      - book
+      - books
   /metrics:
     get:
       description: Returns application metrics in expvar format
