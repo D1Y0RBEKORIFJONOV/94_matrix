@@ -13,8 +13,8 @@ WORKDIR /book
 
 COPY --from=builder /book/app .
 
-COPY --from=builder /book/cmd/tls/localhost.pem ./cmd/tls/localhost.pem
-COPY --from=builder /book/cmd/tls/localhost-key.pem ./cmd/tls/localhost-key.pem
+COPY --from=builder /book/cmd/tls/localhost.pem /localhost.pem
+COPY --from=builder /book/cmd/tls/localhost-key.pem /localhost-key.pem
 
 CMD ["./app"]
 

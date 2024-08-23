@@ -11,10 +11,10 @@ import (
 func NewRouter(book *bookusecase.BookUseCase) *gin.Engine {
 	bookHandler := handler.NewBookHandler(book)
 	router := gin.New()
-
+	gin.SetMode(gin.ReleaseMode)
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-
+	router.Use(gin.Recovery())
 	bookGroup := router.Group("/book")
 	{
 		bookGroup.POST("/create", bookHandler.CreateBook)
