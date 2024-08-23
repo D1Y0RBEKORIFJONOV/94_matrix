@@ -27,6 +27,13 @@ func NewBookHandler(book *bookusecase.BookUseCase) *Book {
 	}
 }
 
+// @title Book API
+// @version 1.0
+// @description This is a sample server.
+// @host 52.59.220.158:9000
+// @BasePath /
+// @schemes https
+
 // CreateBook godoc
 // @Summary CreateBook
 // @Description CreateBook a new book

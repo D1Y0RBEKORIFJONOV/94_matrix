@@ -1,8 +1,16 @@
 {
+    "schemes": [
+        "https"
+    ],
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is a sample server.",
+        "title": "Book API",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "52.59.220.158:9000",
+    "basePath": "/",
     "paths": {
         "/book/": {
             "get": {

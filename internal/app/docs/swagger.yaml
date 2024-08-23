@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   bookentity.Book:
     properties:
@@ -30,8 +31,12 @@ definitions:
       title:
         type: string
     type: object
+host: 52.59.220.158:9000
 info:
   contact: {}
+  description: This is a sample server.
+  title: Book API
+  version: "1.0"
 paths:
   /book/:
     get:
@@ -191,4 +196,6 @@ paths:
       summary: Get application metrics
       tags:
       - metrics
+schemes:
+- https
 swagger: "2.0"
