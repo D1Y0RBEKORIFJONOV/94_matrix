@@ -28,7 +28,7 @@ func main() {
 
 	go func() {
 		log.Info("server starting on port ", cfg.HTTPUrl)
-		if err := srv.ListenAndServeTLS("localhost.pem", "localhost-key.pem"); err != nil && err != http.ErrServerClosed {
+		if err := srv.ListenAndServeTLS("/localhost.pem", "/localhost-key.pem"); err != nil && err != http.ErrServerClosed {
 			log.Error("listen: %s\n", err)
 		}
 	}()
