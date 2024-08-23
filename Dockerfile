@@ -4,7 +4,6 @@ WORKDIR /book
 
 COPY . .
 
-# Сборка приложения
 RUN go build -o app cmd/book/app.go
 
 FROM golang:1.23.0
