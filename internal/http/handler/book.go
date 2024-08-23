@@ -30,7 +30,7 @@ func NewBookHandler(book *bookusecase.BookUseCase) *Book {
 // CreateBook godoc
 // @Summary CreateBook
 // @Description CreateBook a new book
-// @Tags books
+// @Tags book
 // @Accept json
 // @Produce json
 // @Param body body bookentity.CreateBookRequest true "creating new book"
@@ -60,7 +60,7 @@ func (b *Book) CreateBook(c *gin.Context) {
 // GetBook godoc
 // @Summary GetBook
 // @Description GetBook
-// @Tags books
+// @Tags book
 // @Accept json
 // @Produce json
 // @Param id query string false "id book"
@@ -93,7 +93,7 @@ func (b *Book) GetBook(c *gin.Context) {
 // GetBooks godoc
 // @Summary GetBooks
 // @Description GetBooks
-// @Tags books
+// @Tags book
 // @Accept json
 // @Produce json
 // @Param value query string false "value book"
@@ -128,7 +128,7 @@ func (b *Book) GetBooks(c *gin.Context) {
 // DeleteBook godoc
 // @Summary DeleteBook
 // @Description DeleteBook
-// @Tags books
+// @Tags book
 // @Accept json
 // @Produce json
 // @Param id query string false "id book"
@@ -165,7 +165,7 @@ func (b *Book) DeleteBook(c *gin.Context) {
 // UpdateBook godoc
 // @Summary UpdateBook
 // @Description UpdateBook a  book
-// @Tags books
+// @Tags book
 // @Accept json
 // @Produce json
 // @Param body body bookentity.UpdateBookRequest true "creating new book"
