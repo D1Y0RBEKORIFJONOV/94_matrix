@@ -11,8 +11,7 @@ func main() {
 	cfg := config.New()
 	log := logger.SetupLogger(cfg.LogLevel)
 	application := app.NewApp(cfg, log)
-	err := application.HTTPApp.Server.RunTLS(application.HTTPApp.HTTPUrl, "./tls/localhost.pem", "./tls/localhost-key.pem")
-
+	err := application.HTTPApp.Server.RunTLS(application.HTTPApp.HTTPUrl, "./cmd/tls/localhost.pem", "./cmd/tls/localhost-key.pem")
 	log.Info("server starting on port ", cfg.HTTPUrl)
 	if err != nil {
 		log.Error("err", err)
